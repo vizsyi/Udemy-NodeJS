@@ -1,9 +1,12 @@
 const fs = require("fs");
 const express = require("express");
+const morgan = require("morgan");
 
 const app = express();
 
 // 1) MIDDLEWARES
+
+app.use(morgan("dev"));
 
 app.use(express.json()); //to use to read the body of request
 
