@@ -1,0 +1,18 @@
+# dependencies
+*/node_modules
+
+# Compiled source
+# src/*.css
+# src/*.css.map
+
+# images
+*.jpg
+*.png
+
+# data
+**/data/
+
+# misc
+*/config.env
+*/package-lock.json
+kuka
