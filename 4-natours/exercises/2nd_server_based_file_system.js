@@ -7,6 +7,34 @@ const app = express();
 
 app.use(express.json()); //to use to read the body of request
 
+// 1) MIDDLEWARES
+
+// Param middlewares
+const checkID = (req, res, next, val) => {
+  const id = val * 1,
+    tour = tours.find((t) => t.id === id);
+
+  if (!tour) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Invalid ID",
+    });
+  }
+
+  next();
+};
+
+const checkBody = (req, res, next, val) => {
+  if (!req.body.name || !req.body.price) {
+    return res.status(400).json({
+      status: "fail",
+      message: "Missing name or price",
+    });
+  }
+
+  next();
+};
+
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
@@ -98,12 +126,29 @@ const deleteTour = (req, res) => {
 //app.patch("/api/v1/tours/:id", updateTour);
 //app.delete("/api/v1/tours/:id", deleteTour);
 
+//3.3 2nd version
+
 app.route("/api/v1/tours").get(getAllTours).post(createTour);
 app
   .route("/api/v1/tours/:id")
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
+
+//3.3 3rd version
+const router = express.Router();
+
+router.param("id", tourController.checkID);
+
+router
+  .route("/")
+  .get(tourController.getAllTours)
+  .post(tourController.checkBody, tourController.createTour);
+router
+  .route("/:id")
+  .get(tourController.getTour)
+  .patch(tourController.updateTour)
+  .delete(tourController.deleteTour);
 
 // 4) START SERVER
 
