@@ -1,6 +1,24 @@
 const Tour = require("./../models/tourModel");
 const APIFeatures = require("./../utils/apiFeatures");
 
+// 1) ALIASING
+exports.aliasTopTours = (req, res, next) => {
+  let extraUrl = "";
+
+  if (!req.query.limit) {
+    extraUrl = (req.url.includes("?") ? "&" : "?") + "limit=5";
+  }
+  if (!req.query.sort) {
+    extraUrl += "&sort=-ratingsAverage,price";
+  }
+  if (!req.query.fields) {
+    extraUrl += "&fields=name,price,ratingsAverage,summary,difficulty";
+  }
+  if (extraUrl !== "") req.url += extraUrl;
+
+  next();
+};
+
 // 2) ROUTE HANDLERS
 
 exports.getAllTours = async (req, res) => {
