@@ -8,6 +8,7 @@ npm i nodemon --save-dev & using npm script | --global
 npm i slugify for handling route ids
 npm i morgan: for logging
 npm i dotenv: for using enviroment variables
+npm i validator
 
 ## NPM package versions
 
