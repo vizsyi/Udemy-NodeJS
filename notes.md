@@ -37,3 +37,10 @@ require("url") // parsing the query string into an object
 
 app.use(express.json()); //for reading the body of request
 app.use(express.static(`${__dirname}/public`)); //for serving static files
+
+## Mongoose middlewares
+
+- document
+- query
+- aggregate
+- model
