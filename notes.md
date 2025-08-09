@@ -9,6 +9,8 @@ npm i slugify for handling route ids
 npm i morgan: for logging
 npm i dotenv: for using enviroment variables
 npm i validator
+npm i bcryptjs
+npm i jsonwebtoken
 
 ## NPM package versions
 
@@ -44,3 +46,9 @@ app.use(express.static(`${__dirname}/public`)); //for serving static files
 - query
 - aggregate
 - model
+
+## Webtoken
+
+- [npm jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [JWT Debugger](https://www.jwt.io)
+- https://github.com/auth0/node-jsonwebtoken#readme
