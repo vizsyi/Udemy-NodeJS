@@ -11,6 +11,7 @@ npm i dotenv: for using enviroment variables
 npm i validator
 npm i bcryptjs
 npm i jsonwebtoken
+npm i ndb --global: for debuging
 
 ## NPM package versions
 

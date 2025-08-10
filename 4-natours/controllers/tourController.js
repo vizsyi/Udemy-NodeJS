@@ -1,5 +1,6 @@
 const Tour = require("./../models/tourModel");
 const APIFeatures = require("./../utils/apiFeatures");
+const AppError = require("./../utils/appError");
 
 // 1) ALIASING
 exports.aliasTopTours = (req, res, next) => {
@@ -46,10 +47,15 @@ exports.getAllTours = async (req, res) => {
   }
 };
 
-exports.getTour = async (req, res) => {
+exports.getTour = async (req, res, next) => {
   try {
     const tour = await Tour.findById(req.params.id);
     //const tour  = await Tour.findOne({ _id: req.params.id });
+
+    if (!tour) {
+      return next(new AppError("No tour found with that ID", 404));
+    }
+
     res.status(200).json({
       status: "success",
       data: { tour },
@@ -82,12 +88,17 @@ exports.createTour = async (req, res) => {
   }
 };
 
-exports.updateTour = async (req, res) => {
+exports.updateTour = async (req, res, next) => {
   try {
     const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
+
+    if (!tour) {
+      return next(new AppError("No tour found with that ID", 404));
+    }
+
     res.status(200).json({
       status: "success",
       data: { tour },
@@ -100,9 +111,11 @@ exports.updateTour = async (req, res) => {
   }
 };
 
-exports.deleteTour = async (req, res) => {
+exports.deleteTour = async (req, res, next) => {
   try {
-    await Tour.findByIdAndDelete(req.params.id);
+    if (!(await Tour.findByIdAndDelete(req.params.id))) {
+      return next(new AppError("No tour found with that ID", 404));
+    }
 
     res.status(204).json({
       status: "success",
