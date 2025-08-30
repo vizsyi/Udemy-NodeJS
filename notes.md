@@ -12,6 +12,7 @@ npm i validator
 npm i bcryptjs
 npm i jsonwebtoken
 npm i ndb --global: for debuging
+npm i nodemailer: for mailing
 
 ## NPM package versions
 
