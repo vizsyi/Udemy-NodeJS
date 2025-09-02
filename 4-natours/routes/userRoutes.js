@@ -1,6 +1,7 @@
 const express = require("express");
 
 const authController = require("./../controllers/authController");
+const userController = require("./../controllers/userController");
 
 // 3) ROUTES
 
@@ -17,5 +18,7 @@ router.patch(
   authController.protect,
   authController.updateMyPassword
 );
+
+router.patch("/updateMe", authController.protect, userController.updateMe);
 
 module.exports = router;
