@@ -18,6 +18,15 @@ const signToken = (id) => {
 const createAndSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
 
+  const cookeiOptions = {
+    expires: new Date(Date.now + process.env.JWT_EXPIRES_MIN * 60 * 1000),
+    httpOnly: true,
+  };
+  if (process.env.NODE_ENV === "production") cookeiOptions.secure = true;
+
+  res.cookie("jwt", token, cookeiOptions);
+
+  //Remove password from output
   user.password = undefined;
 
   res.status(statusCode).json({
