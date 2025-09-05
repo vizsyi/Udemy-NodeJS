@@ -11,7 +11,7 @@ const sendEmail = require("./../utils/email");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+    expiresIn: process.env.JWT_EXPIRES_MIN * 60, //10d = 10 days
   });
 };
 
@@ -19,7 +19,7 @@ const createAndSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
 
   const cookeiOptions = {
-    expires: new Date(Date.now + process.env.JWT_EXPIRES_MIN * 60 * 1000),
+    expires: new Date(Date.now() + process.env.JWT_EXPIRES_MIN * 60000),
     httpOnly: true,
   };
   if (process.env.NODE_ENV === "production") cookeiOptions.secure = true;

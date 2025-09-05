@@ -13,6 +13,7 @@
 **/data/
 
 # misc
+secret.txt
 */config.env
 */package-lock.json
 kuka
