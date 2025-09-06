@@ -14,6 +14,14 @@ npm i jsonwebtoken
 npm i ndb --global: for debuging
 npm i nodemailer: for mailing
 
+### Security packages
+
+npm i helmet
+npm i express-rate-limit
+npm i express-xss-sanitizer: instead of the deprecated xss-clean
+npm i express-mongo-sanitize
+npm i hpp: against HTTP parameter pollution
+
 ## NPM package versions
 
 npm install packagename@1.0.0
